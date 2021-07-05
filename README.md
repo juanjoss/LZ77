@@ -11,16 +11,16 @@ This implementation is written in Go as an intention to improve my skills.
 ## How to use it
 > make
 
-    This will create the executable and clean the files generated from the tests.
+This will create the executable and clean the files generated from the tests.
 
 > ./lz77
 
-    Run it! 
-    For now it just takes the lorem.txt in the test_files folder, and creates a compressed (lorem_comp) and a decompressed file (lorem).
+Run it! 
+For now it just takes the lorem.txt in the test_files folder, and creates a compressed (lorem_comp) and a decompressed file (lorem).
 
 ## Credits
 
-    I used this resources to understand the real implementation of LZ77. Since in reality bit operations are needed to encode and decode data.
+I used this resources to understand the real implementation of LZ77. Since in reality bit operations are needed to encode and decode data.
 
 - https://github.com/fbonhomm/LZ77
 - https://www.youtube.com/watch?v=zIwTq2yPCU4&t=1297s
