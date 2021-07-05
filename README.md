@@ -6,7 +6,7 @@ This implementation is written in Go as an intention to improve my skills.
 
 ## How to build and test it
 
-The makefile cleanes the files created if you tested with files from /test_files, runs the test and creates the executable.
+The makefile cleans the files created if you tested with files from /test_files, runs the test and creates the executable.
 
 > make
 
