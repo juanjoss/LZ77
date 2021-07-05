@@ -1,42 +1,70 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"io/ioutil"
+	"path/filepath"
+	"strings"
 
 	lz77 "github.com/fuato1/lz77/LZ77"
 )
 
 func main() {
-	// reading file
-	data, err := ioutil.ReadFile("./test_files/lorem.txt")
-	if err != nil {
-		panic(err)
-	}
+	c := flag.String("c", "", "compress file.")
+	d := flag.String("d", "", "decompress file.")
 
-	// compressing data
+	flag.Parse()
+
 	lz77 := lz77.Init()
-	compressedData := lz77.Compress(data)
 
-	// stats
-	compressionRatio := float64(len(compressedData)) / float64(len(data))
+	if *c != "" {
+		// reading file
+		fmt.Println("filepath: ", *c)
+		data, err := ioutil.ReadFile(*c)
+		if err != nil {
+			panic(err)
+		}
 
-	fmt.Println("Original size: ", len(data))
-	fmt.Println("Compressed size: ", len(compressedData))
-	fmt.Printf("Compression ratio: %.2f\n", compressionRatio)
+		// compressing data
+		compressedData := lz77.Compress(data)
 
-	// writing compressed data
-	err = ioutil.WriteFile("./test_files/lorem_comp", compressedData, 0644)
-	if err != nil {
-		panic(err)
-	}
+		// stats
+		compressionRatio := float64(len(compressedData)) / float64(len(data))
 
-	// decompressing data
-	decompressedData := lz77.Decompress(compressedData)
+		fmt.Println("Original size: ", len(data))
+		fmt.Println("Compressed size: ", len(compressedData))
+		fmt.Printf("Compression ratio: %.2f\n", compressionRatio)
 
-	// writing decompressed data
-	err = ioutil.WriteFile("./test_files/lorem", decompressedData, 0644)
-	if err != nil {
-		panic(err)
+		// writing compressed data
+		err = ioutil.WriteFile(*c+".lz77", compressedData, 0644)
+		if err != nil {
+			panic(err)
+		}
+	} else if *d != "" {
+		// reading file
+		fmt.Println("filepath: ", *d)
+		compData, err := ioutil.ReadFile(*d)
+		if err != nil {
+			panic("error in decompressor: couldn't open filepath.")
+		}
+
+		if filepath.Ext(*d) != ".lz77" {
+			panic("decompressor requires a .lz77 file.")
+		}
+		file := strings.Split(*d, filepath.Ext(*d))[0]
+		file = strings.Split(file, filepath.Ext(file))[0]
+
+		// decompressing data
+		decompressedData := lz77.Decompress(compData)
+
+		// writing decompressed data
+		fmt.Println("output: ", file)
+		err = ioutil.WriteFile(file, decompressedData, 0644)
+		if err != nil {
+			panic("error in decompressor: couldn't write file.")
+		}
+	} else {
+		fmt.Print("\nusage: ./lz77 [-c=filepath | -d=filepath]\n")
 	}
 }

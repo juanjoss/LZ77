@@ -4,23 +4,23 @@ LZ77 is a lossless compression algorithm, dictorinary based, which uses a slidin
 
 This implementation is written in Go as an intention to improve my skills.
 
-## How to test it
+## How to build and test it
 
-***Not yet.***
+The makefile cleanes the files created if you tested with files from /test_files, runs the test and creates the executable.
 
-## How to use it
 > make
 
-This will create the executable and clean the files generated from the tests.
+## How to use it
 
-> ./lz77
+Run it!
 
-Run it! 
-For now it just takes the lorem.txt in the test_files folder, and creates a compressed (lorem_comp) and a decompressed file (lorem).
+The executable takes a flag (-c or -d) along with the path to the file to compress/decompress.
+
+> ./lz77 [-c=filepath | -d=filepath]
 
 ## Credits
 
-I used this resources to understand the real implementation of LZ77. Since in reality bit operations are needed to encode and decode data.
+I used this resources to understand how bit operations are used in LZ77 to encode and decode the data.
 
 - https://github.com/fbonhomm/LZ77
 - https://www.youtube.com/watch?v=zIwTq2yPCU4&t=1297s
