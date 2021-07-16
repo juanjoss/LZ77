@@ -30,7 +30,7 @@ func main() {
 		compressedData := lz77.Compress(data)
 
 		// stats
-		compressionRatio := float64(len(compressedData)) / float64(len(data))
+		compressionRatio := float64(len(data)) / float64(len(compressedData))
 
 		fmt.Println("Original size: ", len(data))
 		fmt.Println("Compressed size: ", len(compressedData))
